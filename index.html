@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="OG Web - Minecraft Resource Packs, Modpacks and Mods.">
+  <title>OG Web | Minecraft Downloads</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header" id="home">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="OG Web Home">
+        <img src="og_logo.png" alt="OG Logo" class="brand-logo">
+        <span class="brand-name">OG Web</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button"
+        aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#resource-packs">Resource Packs</a>
+        <a href="#modpacks">Modpacks</a>
+        <a href="#mods">Mods</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <img src="og_logo.png" alt="OG Logo" class="hero-logo">
+        <p class="eyebrow">MINECRAFT DOWNLOADS</p>
+        <h1>Welcome to <span>OG Web</span></h1>
+        <p class="hero-description">
+          Discover Minecraft resource packs, modpacks and future mods from OG Web.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#resource-packs">Explore Resource Packs</a>
+          <a class="secondary-button" href="#modpacks">View Modpacks</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="search-section" aria-label="Search projects">
+      <div class="container">
+        <div class="search-box">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="siteSearch" type="search"
+            placeholder="Search resource packs, modpacks or mods..."
+            autocomplete="off" aria-label="Search projects">
+          <button id="clearSearch" class="clear-search" type="button"
+            aria-label="Clear search" hidden>×</button>
+        </div>
+        <p id="searchResultText" class="search-result-text" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="content-section" id="resource-packs">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">DOWNLOADS</p>
+            <h2>Resource Packs</h2>
+          </div>
+          <span class="item-count">7 Packs</span>
+        </div>
+
+        <div class="project-grid" id="resourcePackGrid">
+
+          <article class="project-card" data-project
+            data-search="og pack resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="og_pack.png" alt="OG Pack" class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>OG Pack</h3>
+              <p>The original OG resource pack from OG Web.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="OG-Pack.zip" download>Download</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-project
+            data-search="og xray x-ray texture resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="og_x-ray_texture_pack.png" alt="OG Xray Pack" class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>OG Xray Pack</h3>
+              <p>An Xray-style Minecraft texture pack from OG Web.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="OG-Xray-Texture-Pack.zip" download>Download</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-project
+            data-search="og tiny items pack small items resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="og_tiny_items_pack.png" alt="OG Tiny Items Pack" class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>OG Tiny Items Pack</h3>
+              <p>Makes Minecraft item visuals smaller for a clean look.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="OG-Tiny-Items-Pack.zip" download>Download</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-project
+            data-search="og tiny blocks pack small blocks resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="og_tiny_blocks_pack.png" alt="OG Tiny Blocks Pack" class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>OG Tiny Blocks Pack</h3>
+              <p>Makes Minecraft block visuals smaller and compact.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="OG-Tiny-Blocks-Pack.zip" download>Download</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-project
+            data-search="high visibility effect particles potion particles resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="high_visible_effect_particles.png"
+                alt="High Visibility Effect Particles"
+                class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>High Visibility Effect Particles</h3>
+              <p>Improves the visibility of Minecraft effect particles.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="High-Visibility-Effect-Particles.zip" download>Download</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-project
+            data-search="better fullvision full vision brightness resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="better_fullvision.png" alt="Better FullVision"
+                class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>Better FullVision</h3>
+              <p>A visibility-focused Minecraft resource pack.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="Better-FullVision.zip" download>Download</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-project
+            data-search="better bushy leaves leaves resource pack minecraft">
+            <div class="project-image-wrap">
+              <img src="better_bushys_leaves.png" alt="Better Bushy Leaves"
+                class="project-image" loading="lazy">
+            </div>
+            <div class="project-content">
+              <span class="project-type">Resource Pack</span>
+              <h3>Better Bushy Leaves</h3>
+              <p>Adds a fuller bushy appearance to Minecraft leaves.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Resource Pack</span>
+              </div>
+              <a class="download-button" href="Better-Bushys-Leaves.zip" download>Download</a>
+            </div>
+          </article>
+
+        </div>
+
+        <div id="noResourceResults" class="no-results" hidden>
+          <h3>No resource pack found</h3>
+          <p>Try a different search.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section alternate-section" id="modpacks">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">PERFORMANCE</p>
+            <h2>Modpacks</h2>
+          </div>
+          <span class="item-count">1 Modpack</span>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card" data-project
+            data-search="og optimization modpack fps performance fabric minecraft">
+            <div class="project-image-wrap">
+              <img src="og_optimization_modpack.gif"
+                alt="OG Optimization Modpack"
+                class="project-image" loading="lazy">
+              <span class="media-badge">GIF</span>
+            </div>
+            <div class="project-content">
+              <span class="project-type">Modpack</span>
+              <h3>OG Optimization Modpack</h3>
+              <p>A performance-focused Minecraft modpack for smoother gameplay.</p>
+              <div class="project-meta">
+                <span>Minecraft</span><span>Optimization</span>
+              </div>
+              <a class="download-button" href="OG-Optimization-Modpack.zip" download>
+                Download
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="mods">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">FUTURE PROJECTS</p>
+            <h2>Mods</h2>
+          </div>
+          <span class="item-count">Coming Soon</span>
+        </div>
+
+        <div class="coming-soon-card">
+          <div class="coming-icon">⚙</div>
+          <h3>Mods Coming Soon</h3>
+          <p>New OG Web Minecraft mods will be added here in the future.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section alternate-section" id="about">
+      <div class="container">
+        <div class="about-card">
+          <div>
+            <p class="section-label">ABOUT</p>
+            <h2>About OG Web</h2>
+            <p>
+              OG Web is a Minecraft project website for sharing resource packs,
+              modpacks and future Minecraft mods.
+            </p>
+            <p>
+              Browse the projects, use search to find something quickly,
+              and download the files you want.
+            </p>
+          </div>
+
+          <div class="about-stats">
+            <div class="stat"><strong>7</strong><span>Resource Packs</span></div>
+            <div class="stat"><strong>1</strong><span>Modpack</span></div>
+            <div class="stat"><strong>∞</strong><span>Future Projects</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <p class="section-label">CONNECT</p>
+          <h2>Stay Connected</h2>
+          <p>Add your official links here when you are ready.</p>
+
+          <div class="social-links">
+            <a href="#" class="social-link">GitHub</a>
+            <a href="#" class="social-link">Modrinth</a>
+            <a href="#" class="social-link">CurseForge</a>
+            <a href="#" class="social-link">Discord</a>
+            <a href="#" class="social-link">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="scrollTopButton" class="scroll-top" type="button"
+    aria-label="Back to top" hidden>↑</button>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>OG Web</strong>
+        <p>Minecraft Resource Packs • Modpacks • Mods</p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#resource-packs">Resource Packs</a>
+        <a href="#modpacks">Modpacks</a>
+        <a href="#mods">Mods</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="footer-bottom">
+        <p>© 2026 OG Web. All rights reserved.</p>
+        <p>Made by OG Developer</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
