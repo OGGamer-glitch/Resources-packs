@@ -8,9 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const searchInput = document.getElementById("siteSearch");
   const clearSearch = document.getElementById("clearSearch");
-  const searchResultText = document.getElementById("searchResultText");
+  const searchResultText =
+    document.getElementById("searchResultText");
 
-  const scrollTopButton = document.getElementById("scrollTopButton");
+  const scrollTopButton =
+    document.getElementById("scrollTopButton");
+
   const projectCards = Array.from(
     document.querySelectorAll("[data-project]")
   );
@@ -126,12 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    /*
-      Show the resource-pack "no results"
-      message only when a search is active
-      and no resource packs match.
-    */
-
     if (noResourceResults) {
       const resourceCards =
         projectCards.filter((card) => {
@@ -162,9 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (event) => {
         if (event.key === "Escape") {
           searchInput.value = "";
-
           performSearch();
-
           searchInput.blur();
         }
       }
@@ -180,15 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!searchInput) return;
 
       searchInput.value = "";
-
       performSearch();
-
       searchInput.focus();
     });
   }
 
   /* =======================================================
-     BACK TO TOP BUTTON
+     BACK TO TOP
   ======================================================= */
 
   function updateScrollButton() {
@@ -221,33 +214,167 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =======================================================
+     VERSION SELECTORS
+  ======================================================= */
+
+  document
+    .querySelectorAll(".version-select")
+    .forEach((select) => {
+
+      const card =
+        select.closest(".project-card");
+
+      if (!card) return;
+
+      const downloadButton =
+        card.querySelector(
+          "[data-download-button]"
+        );
+
+      if (!downloadButton) return;
+
+      const baseFile =
+        select.dataset.baseFile || "";
+
+      /*
+        The download button starts disabled
+        until a version is selected.
+      */
+
+      downloadButton.classList.add(
+        "version-required"
+      );
+
+      downloadButton.setAttribute(
+        "aria-disabled",
+        "true"
+      );
+
+      downloadButton.title =
+        "Select a Minecraft version first.";
+
+      select.addEventListener(
+        "change",
+        () => {
+
+          const version =
+            select.value;
+
+          if (!version) {
+
+            downloadButton.classList.add(
+              "version-required"
+            );
+
+            downloadButton.setAttribute(
+              "aria-disabled",
+              "true"
+            );
+
+            downloadButton.title =
+              "Select a Minecraft version first.";
+
+            return;
+          }
+
+          downloadButton.classList.remove(
+            "version-required"
+          );
+
+          downloadButton.removeAttribute(
+            "aria-disabled"
+          );
+
+          downloadButton.removeAttribute(
+            "title"
+          );
+
+          /*
+            Versioned files use this format:
+
+            OG-Pack-1.21.11.zip
+            OG-Pack-1.21.10.zip
+            OG-Pack-1.21.1.zip
+          */
+
+          if (version === "all") {
+
+            downloadButton.href =
+              baseFile;
+
+            return;
+          }
+
+          const dot =
+            baseFile.lastIndexOf(".");
+
+          const extension =
+            dot >= 0
+              ? baseFile.slice(dot)
+              : "";
+
+          const name =
+            dot >= 0
+              ? baseFile.slice(0, dot)
+              : baseFile;
+
+          downloadButton.href =
+            `${name}-${version}${extension}`;
+        }
+      );
+
+      /*
+        Prevent download when no version
+        has been selected.
+      */
+
+      downloadButton.addEventListener(
+        "click",
+        (event) => {
+
+          if (!select.value) {
+
+            event.preventDefault();
+
+            select.focus();
+
+            select.setCustomValidity(
+              "Please select a Minecraft version first."
+            );
+
+            select.reportValidity();
+
+            window.setTimeout(() => {
+              select.setCustomValidity("");
+            }, 1200);
+          }
+        }
+      );
+    });
+
+  /* =======================================================
      DOWNLOAD BUTTON FEEDBACK
   ======================================================= */
 
   document
     .querySelectorAll(".download-button")
     .forEach((button) => {
+
       button.addEventListener(
         "click",
         () => {
+
           const originalText =
             button.textContent;
 
           button.textContent =
             "Starting...";
 
-          button.setAttribute(
-            "aria-label",
-            "Download starting"
-          );
-
           window.setTimeout(() => {
+
             button.textContent =
               originalText;
 
-            button.removeAttribute(
-              "aria-label"
-            );
           }, 1200);
         }
       );
@@ -260,11 +387,13 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener(
     "resize",
     () => {
+
       if (
         window.innerWidth > 700 &&
         mainNav &&
         menuToggle
       ) {
+
         mainNav.classList.remove(
           "open"
         );
@@ -291,12 +420,15 @@ document.addEventListener("DOMContentLoaded", () => {
       ".project-image, .brand-logo, .hero-logo"
     )
     .forEach((image) => {
+
       image.addEventListener(
         "error",
         () => {
+
           image.classList.add(
             "image-error"
           );
+
         }
       );
     });
@@ -322,41 +454,60 @@ document.addEventListener("DOMContentLoaded", () => {
     navLinks.length &&
     sections.length
   ) {
+
     const observer =
       new IntersectionObserver(
         (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) {
-              return;
-            }
 
-            navLinks.forEach((link) => {
-              const matches =
-                link.getAttribute("href") ===
-                `#${entry.target.id}`;
+          entries.forEach(
+            (entry) => {
 
-              link.classList.toggle(
-                "active",
-                matches
+              if (
+                !entry.isIntersecting
+              ) {
+                return;
+              }
+
+              navLinks.forEach(
+                (link) => {
+
+                  const matches =
+                    link.getAttribute(
+                      "href"
+                    ) ===
+                    `#${entry.target.id}`;
+
+                  link.classList.toggle(
+                    "active",
+                    matches
+                  );
+
+                }
               );
-            });
-          });
+
+            }
+          );
+
         },
         {
           rootMargin:
             "-25% 0px -65% 0px",
+
           threshold: 0
         }
       );
 
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
+    sections.forEach(
+      (section) => {
+        observer.observe(section);
+      }
+    );
   }
 
   /* =======================================================
-     INITIALIZE SEARCH
+     INITIALIZE
   ======================================================= */
 
   performSearch();
+
 });
