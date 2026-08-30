@@ -236,6 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const baseFile =
         select.dataset.baseFile || "";
 
+      const releaseUrl =
+        select.dataset.releaseUrl || "";
+
       /*
         The download button starts disabled
         until a version is selected.
@@ -297,14 +300,24 @@ document.addEventListener("DOMContentLoaded", () => {
             OG-Pack-1.21.1.zip
           */
 
-          if (version === "all") {
+          if (releaseUrl) {
 
-            downloadButton.href =
-              baseFile;
+  if (version === "all") {
+    downloadButton.href = releaseUrl;
+    return;
+  }
 
-            return;
-          }
+  downloadButton.href = releaseUrl;
+  return;
+}
 
+if (version === "all") {
+
+  downloadButton.href =
+    baseFile;
+
+  return;
+}
           const dot =
             baseFile.lastIndexOf(".");
 
