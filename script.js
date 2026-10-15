@@ -213,157 +213,141 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  /* =======================================================
-     VERSION SELECTORS
-  ======================================================= */
+  
+  }
+/* =========================================================
+   VERSION SELECTORS — OG CUSTOM POPUP
+========================================================= */
 
-  document
-    .querySelectorAll(".version-select")
-    .forEach((select) => {
+const versionSelects = document.querySelectorAll(".version-select");
 
-      const card =
-        select.closest(".project-card");
+const versionOverlay = document.createElement("div");
+versionOverlay.className = "og-version-overlay";
+versionOverlay.hidden = true;
+versionOverlay.innerHTML = `
+  <div class="og-version-modal" role="dialog" aria-modal="true"
+       aria-labelledby="og-version-title">
+    <div class="og-version-modal-header">
+      <div class="og-version-modal-title" id="og-version-title">
+        Select Version
+      </div>
+      <button class="og-version-close" type="button"
+              aria-label="Close version selection">&times;</button>
+    </div>
+    <div class="og-version-modal-body">
+      <span class="og-version-modal-label">Choose a Minecraft version</span>
+      <div class="og-version-options"></div>
+    </div>
+  </div>
+`;
+document.body.appendChild(versionOverlay);
 
-      if (!card) return;
+const versionModal = versionOverlay.querySelector(".og-version-modal");
+const versionModalTitle = versionOverlay.querySelector("#og-version-title");
+const versionOptions = versionOverlay.querySelector(".og-version-options");
+const versionClose = versionOverlay.querySelector(".og-version-close");
 
-      const downloadButton =
-        card.querySelector(
-          "[data-download-button]"
-        );
+let activeVersionSelect = null;
+let activeVersionTrigger = null;
 
-      if (!downloadButton) return;
+function updateVersionTrigger(select, trigger) {
+  const selectedOption = select.options[select.selectedIndex];
+  const label = selectedOption && selectedOption.value
+    ? selectedOption.textContent.trim()
+    : "Select Version";
 
-      const baseFile =
-        select.dataset.baseFile || "";
+  trigger.querySelector(".popup-version-label").textContent = label;
+  trigger.setAttribute("aria-expanded", "false");
+}
 
-      const releaseUrl =
-        select.dataset.releaseUrl || "";
+function closeVersionPopup() {
+  versionOverlay.hidden = true;
 
-      /*
-        The download button starts disabled
-        until a version is selected.
-      */
-
-      downloadButton.classList.add(
-        "version-required"
-      );
-
-      downloadButton.setAttribute(
-        "aria-disabled",
-        "true"
-      );
-
-      downloadButton.title =
-        "Select a Minecraft version first.";
-
-      select.addEventListener(
-        "change",
-        () => {
-
-          const version =
-            select.value;
-
-          if (!version) {
-
-            downloadButton.classList.add(
-              "version-required"
-            );
-
-            downloadButton.setAttribute(
-              "aria-disabled",
-              "true"
-            );
-
-            downloadButton.title =
-              "Select a Minecraft version first.";
-
-            return;
-          }
-
-          downloadButton.classList.remove(
-            "version-required"
-          );
-
-          downloadButton.removeAttribute(
-            "aria-disabled"
-          );
-
-          downloadButton.removeAttribute(
-            "title"
-          );
-
-          /*
-            Versioned files use this format:
-
-            OG-Pack-1.21.11.zip
-            OG-Pack-1.21.10.zip
-            OG-Pack-1.21.1.zip
-          */
-
-          if (releaseUrl) {
-
-  if (version === "all") {
-    downloadButton.href = releaseUrl;
-    return;
+  if (activeVersionTrigger) {
+    activeVersionTrigger.setAttribute("aria-expanded", "false");
+    activeVersionTrigger.focus();
   }
 
-  downloadButton.href = releaseUrl;
-  return;
+  activeVersionSelect = null;
+  activeVersionTrigger = null;
 }
 
-if (version === "all") {
+function openVersionPopup(select, trigger) {
+  activeVersionSelect = select;
+  activeVersionTrigger = trigger;
 
-  downloadButton.href =
-    baseFile;
+  const card = select.closest(".project-card");
+  const packTitle = card?.querySelector("h3")?.textContent.trim();
 
-  return;
-}
-          const dot =
-            baseFile.lastIndexOf(".");
+  versionModalTitle.textContent = packTitle || "Select Version";
+  versionOptions.replaceChildren();
 
-          const extension =
-            dot >= 0
-              ? baseFile.slice(dot)
-              : "";
+  Array.from(select.options).forEach((option) => {
+    if (!option.value) return;
 
-          const name =
-            dot >= 0
-              ? baseFile.slice(0, dot)
-              : baseFile;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "og-version-option";
+    button.textContent = option.textContent.trim();
+    button.disabled = option.disabled;
 
-          downloadButton.href =
-            `${name}-${version}${extension}`;
-        }
-      );
+    if (option.value === select.value) {
+      button.classList.add("selected");
+    }
 
-      /*
-        Prevent download when no version
-        has been selected.
-      */
-
-      downloadButton.addEventListener(
-        "click",
-        (event) => {
-
-          if (!select.value) {
-
-            event.preventDefault();
-
-            select.focus();
-
-            select.setCustomValidity(
-              "Please select a Minecraft version first."
-            );
-
-            select.reportValidity();
-
-            window.setTimeout(() => {
-              select.setCustomValidity("");
-            }, 1200);
-          }
-        }
-      );
+    button.addEventListener("click", () => {
+      select.value = option.value;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      updateVersionTrigger(select, trigger);
+      closeVersionPopup();
     });
+
+    versionOptions.appendChild(button);
+  });
+
+  trigger.setAttribute("aria-expanded", "true");
+  versionOverlay.hidden = false;
+  versionClose.focus();
+}
+
+versionSelects.forEach((select) => {
+  const trigger = document.createElement("button");
+  trigger.type = "button";
+  trigger.className = "version-popup-trigger";
+  trigger.setAttribute("aria-haspopup", "dialog");
+  trigger.setAttribute("aria-expanded", "false");
+  trigger.innerHTML = `
+    <span class="popup-version-label">Select Version</span>
+    <span class="popup-arrow" aria-hidden="true">⌄</span>
+  `;
+
+  select.insertAdjacentElement("afterend", trigger);
+  select.classList.add("custom-version-ready");
+
+  trigger.addEventListener("click", () => {
+    openVersionPopup(select, trigger);
+  });
+
+  select.addEventListener("change", () => {
+    updateVersionTrigger(select, trigger);
+  });
+
+  updateVersionTrigger(select, trigger);
+});
+
+versionClose.addEventListener("click", closeVersionPopup);
+
+versionOverlay.addEventListener("click", (event) => {
+  if (event.target === versionOverlay) {
+    closeVersionPopup();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !versionOverlay.hidden) {
+    closeVersionPopup();
+  }
+});
 
   /* =======================================================
      DOWNLOAD BUTTON FEEDBACK
