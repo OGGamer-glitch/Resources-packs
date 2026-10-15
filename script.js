@@ -210,9 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
           behavior: "smooth"
         });
       }
-    );
-  }
- }
+   );
+}
 
 /* =========================================================
    VERSION SELECTORS — OG CUSTOM POPUP
