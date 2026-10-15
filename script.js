@@ -210,12 +210,12 @@ document.addEventListener("DOMContentLoaded", () => {
           behavior: "smooth"
         });
       }
-   );
-}
+    );
+  }
 
-/* =========================================================
+  /* =========================================================
    VERSION SELECTORS — OG CUSTOM POPUP
-========================================================= */
+  ========================================================= */
 const versionSelects = document.querySelectorAll(".version-select");
 
 const versionOverlay = document.createElement("div");
