@@ -1073,7 +1073,7 @@ input:focus-visible {
    OG WEB - CUSTOM VERSION POPUP
 ========================================================= */
 
-.version-select {
+.version-select.custom-version-ready {
   display: none !important;
 }
 
