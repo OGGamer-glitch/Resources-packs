@@ -1224,3 +1224,51 @@ input:focus-visible {
     padding: 14px;
   }
 }
+/* OG Web Red + White Click Particles */
+.og-click-particle {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  animation: og-particle-burst 650ms ease-out forwards;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.og-click-particle.red {
+  background: #ff1744;
+  color: #ff1744;
+}
+
+.og-click-particle.white {
+  background: #ffffff;
+  color: #ffffff;
+  width: 4px;
+  height: 4px;
+}
+
+@keyframes og-particle-burst {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--move-x)),
+        calc(-50% + var(--move-y))
+      )
+      scale(0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .og-click-particle {
+    animation-duration: 250ms;
+  }
+}
