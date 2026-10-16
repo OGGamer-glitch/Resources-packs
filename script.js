@@ -550,3 +550,49 @@ document.addEventListener("keydown", (event) => {
   performSearch();
 
 });
+/* OG Web Red + White Click Particle Effect */
+document.addEventListener("click", function (event) {
+  createOGParticles(event.clientX, event.clientY);
+});
+
+document.addEventListener("touchstart", function (event) {
+  const touch = event.changedTouches[0];
+
+  if (touch) {
+    createOGParticles(touch.clientX, touch.clientY);
+  }
+}, { passive: true });
+
+function createOGParticles(x, y) {
+  const colors = ["red", "red", "red", "white", "white"];
+  const particleCount = 12;
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement("span");
+    particle.className =
+      "og-click-particle " +
+      colors[Math.floor(Math.random() * colors.length)];
+
+    particle.style.left = x + "px";
+    particle.style.top = y + "px";
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 20 + Math.random() * 55;
+
+    particle.style.setProperty(
+      "--move-x",
+      Math.cos(angle) * distance + "px"
+    );
+
+    particle.style.setProperty(
+      "--move-y",
+      Math.sin(angle) * distance + "px"
+    );
+
+    document.body.appendChild(particle);
+
+    particle.addEventListener("animationend", function () {
+      particle.remove();
+    }, { once: true });
+  }
+}
