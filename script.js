@@ -326,8 +326,41 @@ versionSelects.forEach((select) => {
   });
 
   select.addEventListener("change", () => {
-    updateVersionTrigger(select, trigger);
-  });
+  updateVersionTrigger(select, trigger);
+
+  const card = select.closest(".project-card");
+  const downloadButton = card?.querySelector(
+    "[data-download-button]"
+  );
+
+  if (!downloadButton) return;
+
+  // Keep OG Pack's existing download unchanged.
+  if (card.querySelector("h3")?.textContent.trim() === "OG Pack") {
+    return;
+  }
+
+  const baseFile = select.dataset.baseFile;
+  const version = select.value;
+
+  if (!baseFile || !version) {
+    downloadButton.removeAttribute("href");
+    downloadButton.classList.add("version-required");
+    return;
+  }
+
+  const extensionIndex = baseFile.lastIndexOf(".");
+  const name = baseFile.slice(0, extensionIndex);
+  const extension = baseFile.slice(extensionIndex);
+
+  const fileName = `${name}-${version}${extension}`;
+
+  downloadButton.href =
+    `https://github.com/OGGamer-glitch/Resources-packs/raw/refs/heads/main/${encodeURIComponent(fileName)}`;
+
+  downloadButton.setAttribute("download", fileName);
+  downloadButton.classList.remove("version-required");
+});
 
   updateVersionTrigger(select, trigger);
 });
