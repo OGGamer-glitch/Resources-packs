@@ -365,7 +365,19 @@ versionSelects.forEach((select) => {
   updateVersionTrigger(select, trigger);
 });
 
-versionClose.addEventListener("click", closeVersionPopup);
+   if (select.value === "") {
+  const card = select.closest(".project-card");
+  const downloadButton = card?.querySelector(
+    "[data-download-button]"
+  );
+
+  if (downloadButton && card.querySelector("h3")?.textContent.trim() !== "OG Pack") {
+    downloadButton.removeAttribute("href");
+    downloadButton.classList.add("version-required");
+  }
+   }
+
+   versionClose.addEventListener("click", closeVersionPopup);
 
 versionOverlay.addEventListener("click", (event) => {
   if (event.target === versionOverlay) {
