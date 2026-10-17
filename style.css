@@ -1272,3 +1272,14 @@ input:focus-visible {
     animation-duration: 250ms;
   }
 }
+/* OG Web - Rounded Search Bar Fix */
+#siteSearch {
+  border-radius: 18px !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#siteSearch:focus {
+  outline: none;
+  border-radius: 18px !important;
+}
