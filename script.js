@@ -180,8 +180,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!downloadButton) return;
 
-      // Preserve OG Pack's original MediaFire download.
+            // OG Pack: use the correct MediaFire link for each version.
       if (card.querySelector("h3")?.textContent.trim() === "OG Pack") {
+        const version = select.value;
+
+        if (version === "1.21.11") {
+          downloadButton.href =
+            "https://www.mediafire.com/file/or75dcje41qw2zy/OG-Pack-1.21.11.zip/file";
+        } else if (version === "26.2") {
+          downloadButton.href =
+            "https://www.mediafire.com/file/8tgqlhnunc3xi3g/OG-Pack-26.2.zip/file";
+        } else {
+          downloadButton.removeAttribute("href");
+          downloadButton.classList.add("version-required");
+          return;
+        }
+
+        downloadButton.removeAttribute("download");
+        downloadButton.classList.remove("version-required");
+        downloadButton.removeAttribute("aria-disabled");
         return;
       }
 
