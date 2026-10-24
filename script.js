@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (version === "1.21.11") {
           downloadButton.href =
             "https://www.mediafire.com/file/or75dcje41qw2zy/OG-Pack-1.21.11.zip/file";
-        } else if (version === "26.2") {
+        } else if (version === "1.26.2" || version === "26.2") {
           downloadButton.href =
             "https://www.mediafire.com/file/8tgqlhnunc3xi3g/OG-Pack-26.2.zip/file";
         } else {
